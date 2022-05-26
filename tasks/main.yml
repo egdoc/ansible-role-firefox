@@ -1,0 +1,25 @@
+---
+- name: Make sure directories exist
+  ansible.builtin.file:
+    path: '{{ item }}'
+    state: directory
+  loop:
+    - '{{ unpack_directory }}'
+    - '{{ binary_directory }}'
+  
+- name: Download and extract firefox developer edition
+  ansible.builtin.unarchive:
+    src: '{{ firefox_url }}'
+    dest: '{{ unpack_directory }}'
+    remote_src: yes
+
+- name: Create binary symbolic link
+  ansible.builtin.file:
+    src: '{{ unpack_directory }}/firefox/firefox'
+    dest: '{{ binary_directory }}/firefox-dev'
+    state: link
+
+- name: Create .desktop file firefox.desktop file
+  ansible.builtin.template:
+    src: templates/firefox-dev.desktop
+    dest: '{{ launcher_directory }}/firefox-dev.desktop'

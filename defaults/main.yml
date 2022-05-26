@@ -1,0 +1,5 @@
+---
+firefox_url: https://download.mozilla.org?product=firefox-devedition-latest-ssl&os=linux64
+unpack_directory: ~/.local/opt 
+binary_directory: ~/.local/bin
+launcher_directory: ~/.local/share/applications
